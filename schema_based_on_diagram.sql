@@ -1,42 +1,37 @@
 CREATE DATABASE hospital;
 
 CREATE TABLE patient(
-    id serial primary key,
-    name varchar(50) not null,
-    date_of_birth date not null,
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	name varchar(250),
+	date_of_birth date
     );
 
 CREATE TABLE invoices(
-    id int primary key,
-    total_amount decimal not null,
-    generated_at timestamp not null,
-    payed_at timestamp not null,
-    medical_history_id integer not null,
-
-    foreign key(patient_id) references patient(id),
-    foreign key(doctor_id) references doctor(id)
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	total_amount decimal,
+	generated_at timestamp,
+	payed_at timestamp,
+	medical_history_id int REFERENCES medical_histories(id)
     );
 
 CREATE TABLE medical_histories(
-    id int primary key,
-    admitted_at timestamp not null,
-    patient_id int not null,
-    status varchar(50) not null,
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	admitted_at timestamp,
+	patient_id int REFERENCES patients(id),
+    status varchar(250)
     );
 
 CREATE TABLE invoice_items(
-    id int primary key,
-    unit_price decimal not null,
-    quantity int not null,
-    total_price decimal not null,
-    invoice_id int not null,
-    treatment_id int not null,
-    
-    foreign key(invoice_id) references invoices(id)
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	unit_price decimal,
+	quatntity int,
+	total_price decimal,
+	invoice_id int REFERENCES invoices(id),
+	treatment_id int REFERENCES treatments(id)
     );
 
 CREATE TABLE treatments(
-    id int primary key,
-    type varchar(50) not null,
-    name varchar(50) not null,
+    id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	type varchar(250),
+	name varchar(250)
     );
