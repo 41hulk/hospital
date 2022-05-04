@@ -27,7 +27,7 @@ CREATE TABLE invoice_items(
 	quatntity int,
 	total_price decimal,
 	invoice_id int REFERENCES invoices(id),
-	treatment_id int REFERENCES treatments(id)
+	treatment_id int REFERENCES treatments(id);
     );
 
 CREATE TABLE treatments(
@@ -35,3 +35,8 @@ CREATE TABLE treatments(
 	type varchar(250),
 	name varchar(250)
     );
+
+	CREATE INDEX treatment_id_asc ON treatments(id ASC);
+	CREATE INDEX invoice_id_asc ON invoices(id ASC);
+	CREATE INDEX patient_id_asc ON patients(id ASC);
+	CREATE INDEX medical_history_id ON medical_histories(id ASC);
